@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import "./search.css";
 import { useState } from 'react';
 
-export default function searchh(){
+export default function searchh({update}){
     let [city,setCity]=useState("");//state var ki access har function k paas hoti hai
     const url="https://api.openweathermap.org/data/2.5/weather";
     const apikey="0f7108b3228dc61522cd7a0f8e980958";
@@ -18,6 +18,7 @@ let getWeatherInfo = async () => {
       let jsonResponse = await response.json();
       console.log(jsonResponse);
       let result={
+        city:city,
         temp:jsonResponse.main.temp,
         tempmin:jsonResponse.main.temp_min,
         tempmax:jsonResponse.main.temp_max,
@@ -27,6 +28,7 @@ let getWeatherInfo = async () => {
 
       };
       console.log(result);
+      return result;
    
   };
   
@@ -34,11 +36,13 @@ let getWeatherInfo = async () => {
     let handlechange=(evt)=>{
         setCity(evt.target.value);
     };
-    let onsubmit=(evt)=>{
+    let onsubmit=async (evt)=>{
         evt.preventDefault();
         console.log(city);
         setCity="";
-        getWeatherInfo();
+        let newinfo=await getWeatherInfo();
+        update(newinfo);
+
     };
     return(
     <div className='search'>

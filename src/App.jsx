@@ -1,13 +1,11 @@
-
-import Searchhh from "./search"
-
+import Weatherapp from "./weatherapp";
+import "./weather.css"
 function App() {
  
 
   return (
     <>
-    <Searchhh/>
-    
+    <Weatherapp/>
     </>
   );
 }
